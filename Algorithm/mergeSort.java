@@ -1,18 +1,35 @@
+/*
+使用BufferedReader+InputStreamReader，先转为字符流，再转为缓存字符流
+看22行
+readLine读一行文字
+由于输入的字符串是按空格隔开的，trim()函数去掉String字符串的首尾空格，
+split()函数是根据参数如",", "-", " "等, 分割String字符串, 返回一个String的数组(String[])
+24行
+再将String类型转为int型，虽然麻烦，但是快
+*/
+
 import java.util.*;
 import java.io.*;
 public class Main{
     public static void main(String[] args){
-        Scanner sc = new Scanner(new InputStreamReader(System.in));
-        int n = sc.nextInt();
+        try{
+        // Scanner sc = new Scanner(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine().trim().split(" ")[0]);
+        // int n = sc.nextInt();
         
         int[] q =new int[n];
+        String[] s = br.readLine().trim().split(" ");
         for(int i=0;i<n;i++){
-            q[i] = sc.nextInt();
+            q[i] = Integer.parseInt(s[i]);
+            // q[i] = sc.nextInt();
         }
         System.out.print(mergeSort(q,0,n-1));
-        // for(int i=0;i<n;i++){
-        //     System.out.print(q[i]);
-        // }
+        }
+        catch(Exception e) {
+            e.getStackTrace();
+            System.out.print(" 123");
+        }
     }
     public static long mergeSort(int[] q, int l,int r){
         if(l>=r) return 0;
